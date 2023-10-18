@@ -1,0 +1,54 @@
+import pacientes.*
+import aparatos.*
+import centro.*
+
+describe "test parte 4" {
+    //maquinas
+    const magneto = new Magneto()
+    const bicicleta = new Bicicleta()
+    const minitramp = new Minitramp()
+    const bicicletaRoja = new Bicicleta(color = "rojo")
+    const magnetoVerde = new Magneto(color = "verde")
+    //pacientes
+    const nicolas = new PacienteResidente(edad = 40, nivelDeDolor = 10, fortalezaMuscular = 20)
+    const victoria = new PacienteCaprichoso(edad = 30, nivelDeDolor = 10, fortalezaMuscular = 40)
+    const julia = new PacienteCaprichoso(edad = 20, nivelDeDolor = 54, fortalezaMuscular = 50)
+    const zoe = new PacienteRapidaRecuperacion(edad = 50, nivelDeDolor = 14, fortalezaMuscular = 40)
+    const leonardo = new Paciente(edad = 40, nivelDeDolor = 10, fortalezaMuscular = 20)
+    const milena = new Paciente(edad = 3, nivelDeDolor = 30, fortalezaMuscular = 50)
+    
+    method initialize() {
+   	 ///pacientes
+   	 centroDeKinesiologia.sumarPaciente(nicolas)
+   	 centroDeKinesiologia.sumarPaciente(victoria)
+   	 centroDeKinesiologia.sumarPaciente(julia)
+   	 centroDeKinesiologia.sumarPaciente(zoe)
+   	 centroDeKinesiologia.sumarPaciente(leonardo)
+   	 centroDeKinesiologia.sumarPaciente(milena)
+   	 //rutinas
+   	 nicolas.asignarRutina([bicicleta, minitramp, bicicleta, magneto])
+   	 victoria.asignarRutina([bicicleta, minitramp, bicicleta, magneto])
+   	 julia.asignarRutina([bicicletaRoja, magnetoVerde, bicicleta])
+   	 zoe.asignarRutina([bicicleta, minitramp, bicicleta, magneto])
+   	 leonardo.asignarRutina([bicicleta, minitramp, bicicleta, magneto])
+   	 milena.asignarRutina([magneto, bicicleta])
+   	 //maquinas
+   	 centroDeKinesiologia.sumarAparato(magneto)
+   	 centroDeKinesiologia.sumarAparato(bicicleta)
+   	 centroDeKinesiologia.sumarAparato(minitramp)
+   	 centroDeKinesiologia.sumarAparato(bicicletaRoja)
+   	 centroDeKinesiologia.sumarAparato(magnetoVerde)
+    }
+    
+    test "los colores de las maquinas son blanco, rojo, verde" {
+   	 assert.equals(#{"blanco", "rojo", "verde"}, centroDeKinesiologia.coloresDeAparatos())
+    }
+    
+    test "el unico paciente menor de 8 años es milena" {
+   	 assert.equals([milena], centroDeKinesiologia.pacientesMenoresDe8Anios())
+    }
+    
+    test "la cantidad de pacientes que no pueden cumplir sus sesiones = 2" {
+   	 assert.equals(2, centroDeKinesiologia.cantDePacientesQueNoPuedenCumplirSuRutina())
+    }
+}

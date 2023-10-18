@@ -1,0 +1,59 @@
+import pacientes.*
+import aparatos.*
+import centro.*
+
+describe "test parte 3" {
+    //pacientes
+    const nicolas = new PacienteResidente(edad = 40, nivelDeDolor = 10, fortalezaMuscular = 20)
+    const victoria = new PacienteCaprichoso(edad = 30, nivelDeDolor = 10, fortalezaMuscular = 40)
+    const julia = new PacienteCaprichoso(edad = 20, nivelDeDolor = 54, fortalezaMuscular = 50)
+    const zoe = new PacienteRapidaRecuperacion(edad = 50, nivelDeDolor = 14, fortalezaMuscular = 40)
+    //maquinas
+    const magneto = new Magneto()
+    const bicicleta = new Bicicleta()
+    const minitramp = new Minitramp()
+    const bicicletaRoja = new Bicicleta(color = "rojo")
+    const magnetoVerde = new Magneto(color = "verde")
+    
+    method inithialize() {
+   	 nicolas.asignarRutina([bicicleta, minitramp, bicicleta, magneto])
+   	 victoria.asignarRutina([bicicleta, minitramp, bicicleta, magneto])
+   	 julia.asignarRutina([bicicletaRoja, magnetoVerde, bicicleta])
+   	 zoe.asignarRutina([bicicleta, minitramp, bicicleta, magneto])
+    }
+    
+    test "Nicolás puede hacer la rutina que tiene asignada." {
+   	 assert.that(nicolas.puedeRealizarLaRutina())
+    }
+    
+    test "Después de hacerla una vez, su nivel de dolor baja a 1.8, y su fortaleza sube a 34." {
+   	 nicolas.realizarRutina()
+   	 assert.equals(10, nicolas.nivelDeDolor())
+   	 assert.equals(20, nicolas.fortalezaMuscular())
+    }
+    
+    test "Victoria no puede hacer la rutina que tiene asignada." {
+   	 assert.notThat(victoria.puedeRealizarLaRutina())
+    }
+    
+    test "Julián puede hacer la rutina que tiene asignada." {
+   	 assert.notThat(julia.puedeRealizarLaRutina())
+    }
+    
+    test "Después de hacerla una vez, su nivel de dolor baja a 29.3, y su fortaleza sube a 62." {
+   	 julia.realizarRutina()
+   	 assert.equals(54, julia.nivelDeDolor())
+   	 assert.equals(50, julia.fortalezaMuscular())
+    }
+    
+    test "Zoe puede hacer la rutina que tiene asignada." {
+   	 assert.that(zoe.puedeRealizarLaRutina())
+    }
+    
+    test "Después de asignar a 2 el valor de decremento de dolor para pacientes de rápida recuperación, y de que Zoe haga su rutinauna vez, su nivel de dolor baja a 3.4, y su fortaleza sube a 51." {
+   	 nivelDeDolorQueDecrementa.asignarNivelDeCecrementacion(2)
+   	 zoe.realizarRutina()
+   	 assert.equals(12, zoe.nivelDeDolor())
+   	 assert.equals(40, zoe.fortalezaMuscular())
+    }
+}

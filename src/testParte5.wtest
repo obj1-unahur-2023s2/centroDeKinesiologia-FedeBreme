@@ -1,0 +1,34 @@
+import pacientes.*
+import aparatos.*
+import centro.*
+
+describe "test parte 5" {
+	 //maquinas
+    const magneto = new Magneto()
+    const bicicleta = new Bicicleta()
+    const minitramp = new Minitramp()
+    const bicicletaRoja = new Bicicleta(color = "rojo")
+    const magnetoVerde = new Magneto(color = "verde")
+    
+    method initialize() {
+   	 //maquinas
+   	 centroDeKinesiologia.sumarAparato(magneto)
+   	 centroDeKinesiologia.sumarAparato(bicicleta)
+   	 centroDeKinesiologia.sumarAparato(minitramp)
+   	 centroDeKinesiologia.sumarAparato(bicicletaRoja)
+   	 centroDeKinesiologia.sumarAparato(magnetoVerde)
+    }
+    
+    test "las maquinas no estan en optimas condiciones" {
+   	 assert.notThat(centroDeKinesiologia.estaEnCondiciones())
+    }
+    
+    test "el centro esta complicado" {
+   	 assert.notThat(centroDeKinesiologia.estaComplicado())
+    }
+    
+    test "el centro recibio un mantenimiento general se registro una visita tecnica" {
+   	 centroDeKinesiologia.realizarMantenimientoGeneral()
+   	 assert.equals(1, centroDeKinesiologia.visitaTecnica())
+    }
+ }
